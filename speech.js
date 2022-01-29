@@ -1,5 +1,6 @@
-import {handleSpeechInput, ENGLISH} from './index.js';
+import {handleSpeechInput, handleErrors, ENGLISH} from './index.js';
 import {logger} from './utilities.js';
+import {createTranslator} from './translate.js'; 
 
 var SpeechRecognition = window.SpeechRecognition|| window.webkitSpeechRecognition;
 var SpeechGrammarList = window.SpeechGrammarList || window.webkitSpeechGrammarList;
@@ -15,7 +16,7 @@ var SpeechRecognitionEvent = window.SpeechRecognitionEvent || window.webkitSpeec
  */
 
 
-var listener;
+var listener, translator;
 var listenerResults = [];
 
 const showIsListening = () => {
@@ -50,13 +51,19 @@ export const addListenButton = (containerId) => {
 
 export const updateLanguage = (language) => {
     listener.lang = language;
+    translator = createTranslator(language);
 }
 
 const onResult = (event) => {
     logger('log', `listener on result`, event);
     var speechResult = event.results[0][0].transcript.toLowerCase();
     logger('log',' Confidence: ' + event.results[0][0].confidence +  ' result: ' + speechResult);
-   handleSpeechInput(speechResult);
+    translator.getReadableText(speechResult).then(result => {
+        handleSpeechInput(result);
+    }).catch(err => {
+        handleErrors('speech.js', err);
+    })
+    
 }
 
 const onSpeechStart = (ev) => {
@@ -107,5 +114,6 @@ const createListener = (language) => {
 
 export const initialize = (language) => {
     listener = createListener(language);
+    translator = createTranslator(language);
     //englishListener = createListener(ENGLISH) 
 }

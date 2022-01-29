@@ -1,5 +1,5 @@
 const settings = {
-    logging: false
+    logging: true
 }
 
 export default settings;

@@ -9,10 +9,16 @@ export let translator;
 export var hvbLanguage = languages[0];
 var clientLanguageCallback;
 var inputCallback;
+var errorCallback;
 
-
+export const handleErrors = (id, error) => {
+    logger(`log`, `error from ${id}: ${error}`);
+    if(errorCallback){
+        errorCallback(error);
+    }
+}
 export const handleSpeechInput = (text) => {
-    logger('log', `handleSpeechInput called with text '${text}' for callback`, inputCallback);
+    logger('log', `handleSpeechInput called with text`, text);
     if(inputCallback && text){
         inputCallback(text);
     }
@@ -85,10 +91,11 @@ export const changeLanguage = (event) => {
     synthUpdateLanguage(hvbLanguage);
 }
 
-const initialize = (language, callback, handleInputCallback) => {
+const initialize = (language, callback, handleInputCallback, handleErrorsCallback) => {
     hvbLanguage = language;
     clientLanguageCallback = callback;
     inputCallback = handleInputCallback;
+    errorCallback = handleErrorsCallback;
     translator = createTranslator(language);
     speechInit(language);
     //init speech synthesis to narrate selected texts to the player
