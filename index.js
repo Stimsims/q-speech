@@ -3,7 +3,8 @@ import {createTranslator} from './translate.js';
 import {initialize as synthInit, updateLanguage as synthUpdateLanguage, textToSpeech} from './synthesis.js';
 import {logger} from './utilities.js';
 
-export const languages = ['ja-JP', 'fr-FR', 'en-US'];
+export const ENGLISH = 'en-US';
+export const languages = ['ja-JP', 'fr-FR'];
 export let translator;
 export var hvbLanguage = languages[0];
 var clientLanguageCallback;

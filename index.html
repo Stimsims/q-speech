@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <title>Interactive Fiction Using QuestJS</title>
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    style-src 'unsafe-inline' 'self' https://fonts.googleapis.com https://cdnjs.cloudflare.com;
+    font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com;
+    script-src 'unsafe-inline' 'self' 'unsafe-eval';
+    img-src 'self';"
+  >
+  <script src="node_modules/kuroshiro/dist/kuroshiro.js"></script>
+  <script src="node_modules/kuroshiro-analyzer-kuromoji/dist/kuroshiro-analyzer-kuromoji.js"></script>
+  <script type="module" src="/index.js"></script>
+  <script>
+    speechSynthesis.addEventListener("voiceschanged", () => {
+      // const voices = speechSynthesis.getVoices()
+      // console.log(`voices`, voices);
+    })
+    window.addEventListener('DOMContentLoaded', (event) => {
+        console.log('code.js DOM fully loaded and parsed');
+        const languageCallback = () => {
+          console.log(`language callback called`);
+        }
+        const inputCallback = () => {
+          console.log(`input callback called`);
+        }
+        if(window && window.hvbSpeech){
+            hvbSpeech.initialize('ja-JP', languageCallback, inputCallback);
+            hvbSpeech.showUi('main', languageCallback);
+        }else{
+            console.warn(`speech utilities unavailable`);
+        }
+    });
+  </script>
+</head>
+
+
+
+<body>
+<h1>Testing site for speech synth</h1>
+<div id="main">
+</div>
+
+</body>
+</html>

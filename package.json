@@ -1,0 +1,23 @@
+{
+  "name": "@stimsims/q-speech",
+  "version": "1.0.0",
+  "description": "small utility library for web speech synthesis",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Stimsims/q-speech.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Stimsims/q-speech/issues"
+  },
+  "dependencies": {
+    "kuroshiro": "^1.2.0",
+    "kuroshiro-analyzer-kuromoji": "^1.1.0"
+  },
+  "homepage": "https://github.com/Stimsims/q-speech#readme"
+}
