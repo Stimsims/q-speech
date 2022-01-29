@@ -38,6 +38,24 @@ const addLanguageButtons = (containerId) => {
     d.appendChild(wrapper);
 }
 
+const addTestButton = (containerId) => {
+    //textToSpeech
+    const tests = [{text: 'hello world', lang: 'en-US'}, {text: 'sushi o taberu', lang: 'ja-JP'}, {text: 'no language set', lang: null}];
+    let wrapper = document.createElement("DIV");
+    wrapper.setAttribute('id', 'test-buttons-wrapper');
+    tests.map(test => {
+        let btn = document.createElement("BUTTON");
+        btn.innerHTML = test.text;
+        btn.onclick=()=>{
+            textToSpeech(test.text, test.lang);
+        };
+        wrapper.appendChild(btn);
+    })
+    let d = document.getElementById(containerId);
+    logger('log', `adding listen to main`, d);
+    d.appendChild(wrapper);
+}
+
 
 export const changeLanguage = (event) => {
     let id = event.target.id;
@@ -82,6 +100,8 @@ const showUi = (containerId) => {
     addListenButton(containerId);
     //add buttons to test changing languages
     addLanguageButtons(containerId);
+    // //for testing features
+    // addTestButton(containerId);
 }
 
 if(window){

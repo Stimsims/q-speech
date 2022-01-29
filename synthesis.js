@@ -16,21 +16,26 @@ export function viewVoices() {
   }
 }
 
-export const changeVoice = (language) => {
-    //select the first voice that matches language type
-    voice = null;
-    let voices = synth.getVoices();
-    voices.map(v => {
-      if(v.lang === language) voice = v;
-    });
-    if(!voice) throw Error(`changeVoice error: language ${language} didn't match any of the voice options`);
+const getVoice = (lang) => {
+  let result = null;
+  let voices = synth.getVoices();
+  voices.map(v => {
+    if(v.lang === lang) result = v;
+  });
+  if(!result) throw Error(`changeVoice error: language ${lang} didn't match any of the voice options`);
+  return result;
 }
 
-export const textToSpeech = (text) => {
+export const changeVoice = (language) => {
+    //select the first voice that matches language type
+    voice = getVoice(language);
+}
+
+export const textToSpeech = (text, lang) => {
     logger('log', `textToSpeech text`, text);
     logger('log', `textToSpeech voice`, voice);
     var utterThis = new SpeechSynthesisUtterance(text);
-    utterThis.voice = voice;
+    utterThis.voice = lang?getVoice(lang):voice;
     utterThis.pitch = pitch;
     utterThis.rate = rate;
     synth.speak(utterThis);

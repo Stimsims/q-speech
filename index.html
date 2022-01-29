@@ -15,11 +15,11 @@
   <script type="module" src="/index.js"></script>
   <script>
     speechSynthesis.addEventListener("voiceschanged", () => {
-      // const voices = speechSynthesis.getVoices()
-      // console.log(`voices`, voices);
+      //  console.log('event: voiceschanged');
+      //  const voices = speechSynthesis.getVoices()
+      //  console.log(`voices`, voices);
     })
     window.addEventListener('DOMContentLoaded', (event) => {
-        console.log('code.js DOM fully loaded and parsed');
         const languageCallback = () => {
           console.log(`language callback called`);
         }
